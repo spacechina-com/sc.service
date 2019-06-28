@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ActivitiesMapper">
+    <!--表名 -->
+    <sql id="tableName">
+		activities
+	</sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+		ACTIVITIES_ID,
+		COMPANY_ID,
+		MODALITIES_ID,
+		BACK_PATH,
+		TOPIC,
+		DESCRIPTION,
+		START_TIME,
+		END_TIME,
+		CREATE_TIME,
+		CREATE_USER,
+		GOODS_ID,
+		BATCH_ID,
+		STATE
+	</sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+		#{ACTIVITIES_ID},
+		#{COMPANY_ID},
+		#{MODALITIES_ID},
+		#{BACK_PATH},
+		#{TOPIC},
+		#{DESCRIPTION},
+		#{START_TIME},
+		#{END_TIME},
+		#{CREATE_TIME},
+		#{CREATE_USER},
+		#{GOODS_ID},
+		#{BATCH_ID},
+		#{STATE}
+	</sql>
+
+   <select id="listPage" parameterType="page" resultType="pd">
+        select
+	        a.ACTIVITIES_ID,
+			a.COMPANY_ID,
+			a.MODALITIES_ID,
+			a.BACK_PATH,
+			a.TOPIC,
+			a.DESCRIPTION,
+			a.START_TIME,
+			a.END_TIME,
+			a.CREATE_TIME,
+			a.CREATE_USER,
+			a.GOODS_ID,
+			a.BATCH_ID,
+			a.STATE,
+			m.DESCRIPTION MDESCRIPTION
+        from
+        <include refid="tableName"></include> a
+        left join modalities m on a.modalities_id = m.modalities_id
+        where
+        1 = 1
+        <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+            and
+            (
+            	a.DESCRIPTION LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            )
+        </if>
+        <if test="pd.COMPANY_ID != null and pd.COMPANY_ID != ''"><!-- 关键词检索 -->
+            and a.COMPANY_ID = #{pd.COMPANY_ID}
+        </if>
+        <if test="pd.MODALITIES_ID != null and pd.MODALITIES_ID != ''"><!-- 关键词检索 -->
+            and a.MODALITIES_ID = #{pd.MODALITIES_ID}
+        </if>
+        <if test="pd.STATE != null and pd.STATE != ''"><!-- 关键词检索 -->
+            and a.STATE = #{pd.STATE}
+        </if>
+        order by a.ACTIVITIES_ID DESC
+    </select>
+
+    <select id="listAll" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+         where
+        1 = 1
+        <if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
+            and
+            (
+            	DESCRIPTION LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+            )
+        </if>
+        <if test="COMPANY_ID != null and COMPANY_ID != ''"><!-- 关键词检索 -->
+            and COMPANY_ID = #{COMPANY_ID}
+        </if>
+        <if test="MODALITIES_ID != null and MODALITIES_ID != ''"><!-- 关键词检索 -->
+            and MODALITIES_ID = #{MODALITIES_ID}
+        </if>
+        <if test="STATE != null and STATE != ''"><!-- 关键词检索 -->
+            and STATE = #{STATE}
+        </if>
+        order by ACTIVITIES_ID DESC
+    </select>
+
+    <!-- 新增 -->
+    <insert id="save" parameterType="pd" useGeneratedKeys="true" keyProperty="ACTIVITIES_ID">
+        insert into <include refid="tableName"></include> (
+        <include refid="Field"></include>
+        ) values (
+        <include refid="FieldValue"></include>
+        )
+    </insert>
+    
+        <!-- 修改 -->
+    <update id="edit" parameterType="pd">
+        update
+        <include refid="tableName"></include>
+        set
+        ACTIVITIES_ID = #{ACTIVITIES_ID}
+        <if test="MODALITIES_ID != null and MODALITIES_ID != ''">
+            ,MODALITIES_ID = #{MODALITIES_ID}
+        </if>
+        <if test="BACK_PATH != null and BACK_PATH != ''">
+            ,BACK_PATH = #{BACK_PATH}
+        </if>
+        <if test="TOPIC != null and TOPIC != ''">
+            ,TOPIC = #{TOPIC}
+        </if>
+        <if test="DESCRIPTION != null and DESCRIPTION != ''">
+            ,DESCRIPTION = #{DESCRIPTION}
+        </if>
+        <if test="START_TIME != null and START_TIME != ''">
+            ,START_TIME = #{START_TIME}
+        </if>
+        <if test="END_TIME != null and END_TIME != ''">
+            ,END_TIME = #{END_TIME}
+        </if>
+        <if test="GOODS_ID != null and GOODS_ID != ''">
+            ,GOODS_ID = #{GOODS_ID}
+        </if>
+        <if test="BATCH_ID != null and BATCH_ID != ''">
+            ,BATCH_ID = #{BATCH_ID}
+        </if>
+        <if test="STATE != null and STATE != ''">
+            ,STATE = #{STATE}
+        </if>
+        where
+        ACTIVITIES_ID = #{ACTIVITIES_ID}
+    </update>
+    
+    <!-- 删除 -->
+    <delete id="delete" parameterType="pd" flushCache="false">
+        delete from
+        <include refid="tableName"></include>
+        where
+        ACTIVITIES_ID = #{ACTIVITIES_ID}
+    </delete>
+    
+    <!-- 通过user_id获取数据 -->
+    <select id="findById" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        ACTIVITIES_ID = #{ACTIVITIES_ID}
+    </select>
+</mapper>

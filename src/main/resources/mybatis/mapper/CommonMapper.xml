@@ -12,4 +12,19 @@
 		left join company c on u.company_id = c.id
 		where u.id = #{USER_ID}
     </select>
+    <select id="listAllGoods" parameterType="pd" resultType="pd">
+        select 
+			g.id GOODS_ID,
+			g.name GOODSNAME
+		from goods g
+		where g.company_id = #{COMPANY_ID}
+    </select>
+    <select id="listAllGoodsBatch" parameterType="pd" resultType="pd">
+        select 
+			c.id BATCH_ID,
+			c.batch_name BATCHNAME
+		 from code_goods cg
+		left join code c on cg.code_id = c.id
+		where cg.goods_id = #{GOODS_ID} and c.company_id = #{COMPANY_ID}
+    </select>
 </mapper>
