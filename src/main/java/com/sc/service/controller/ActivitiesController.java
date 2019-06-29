@@ -32,6 +32,18 @@ public class ActivitiesController extends BaseController {
 		return data;
 	}
 
+	@RequestMapping(value = "listAllPrizeitems", method = RequestMethod.POST)
+	public List<Pd> listAllPrizeitems(@RequestBody Pd pd) {
+		List<Pd> data = null;
+		try {
+			data = activitiesService.listAllPrizeitems(pd);
+		} catch (Exception e) {
+			data = new ArrayList<Pd>();
+			e.printStackTrace();
+		}
+		return data;
+	}
+
 	@RequestMapping(value = "listPage", method = RequestMethod.POST)
 	public Page listPage(@RequestBody Pd pd) {
 		Page page = getPage(pd);
@@ -57,6 +69,17 @@ public class ActivitiesController extends BaseController {
 		return pd;
 	}
 
+	@RequestMapping(value = "savePrizeitems", method = RequestMethod.POST)
+	public Pd savePrizeitems(@RequestBody Pd pd) {
+		try {
+			activitiesService.savePrizeitems(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	public Pd edit(@RequestBody Pd pd) {
 		try {
@@ -72,6 +95,17 @@ public class ActivitiesController extends BaseController {
 	public Pd delete(@RequestBody Pd pd) {
 		try {
 			activitiesService.delete(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
+	@RequestMapping(value = "deletePrizeitems", method = RequestMethod.POST)
+	public Pd deletePrizeitems(@RequestBody Pd pd) {
+		try {
+			activitiesService.deletePrizeitems(pd);
 		} catch (Exception e) {
 			pd = null;
 			e.printStackTrace();

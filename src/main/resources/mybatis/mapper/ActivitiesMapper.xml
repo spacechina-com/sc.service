@@ -104,6 +104,24 @@
         </if>
         order by ACTIVITIES_ID DESC
     </select>
+    
+    <select id="listAllPrizeitems" parameterType="pd" resultType="pd">
+        select
+        	ap.ACTIVITIES_PRIZEITEMS_ID,
+        	ap.PRIZEITEMS_ID,
+        	ap.PERCENT,
+        	p.DESCRIPTION,
+        	p.IMAGE_PATH
+        from
+        activities_prizeitems ap
+        left join prizeitems p on ap.prizeitems_id = p.prizeitems_id
+         where
+        1 = 1
+        <if test="ACTIVITIES_ID != null and ACTIVITIES_ID != ''"><!-- 关键词检索 -->
+            and ap.ACTIVITIES_ID = #{ACTIVITIES_ID}
+        </if>
+        order by ACTIVITIES_PRIZEITEMS_ID ASC
+    </select>
 
     <!-- 新增 -->
     <insert id="save" parameterType="pd" useGeneratedKeys="true" keyProperty="ACTIVITIES_ID">
@@ -111,6 +129,15 @@
         <include refid="Field"></include>
         ) values (
         <include refid="FieldValue"></include>
+        )
+    </insert>
+    
+    <insert id="savePrizeitems" parameterType="pd" useGeneratedKeys="true" keyProperty="ACTIVITIES_PRIZEITEMS_ID">
+        insert into activities_prizeitems values (
+        null,
+        #{ACTIVITIES_ID},
+        #{PRIZEITEMS_ID},
+        #{PERCENT}
         )
     </insert>
     
@@ -157,6 +184,12 @@
         <include refid="tableName"></include>
         where
         ACTIVITIES_ID = #{ACTIVITIES_ID}
+    </delete>
+    
+    <delete id="deletePrizeitems" parameterType="pd" flushCache="false">
+        delete from activities_prizeitems
+     where
+        ACTIVITIES_PRIZEITEMS_ID = #{ACTIVITIES_PRIZEITEMS_ID}
     </delete>
     
     <!-- 通过user_id获取数据 -->

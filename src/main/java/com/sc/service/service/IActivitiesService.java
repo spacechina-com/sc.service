@@ -18,4 +18,10 @@ public interface IActivitiesService {
 	List<Pd> listPage(Page page) throws Exception;
 
 	List<Pd> listAll(Pd pd) throws Exception;
+
+	void savePrizeitems(Pd pd) throws Exception;
+
+	List<Pd> listAllPrizeitems(Pd pd) throws Exception;
+
+	void deletePrizeitems(Pd pd) throws Exception;
 }

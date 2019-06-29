@@ -47,4 +47,19 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		return (Pd) dao.findForObject("ActivitiesMapper.findById", pd);
 	}
 
+	@Override
+	public void savePrizeitems(Pd pd) throws Exception {
+		dao.save("ActivitiesMapper.savePrizeitems", pd);
+	}
+
+	@Override
+	public List<Pd> listAllPrizeitems(Pd pd) throws Exception {
+		return (List<Pd>) dao.findForList("ActivitiesMapper.listAllPrizeitems", pd);
+	}
+
+	@Override
+	public void deletePrizeitems(Pd pd) throws Exception {
+		dao.delete("ActivitiesMapper.deletePrizeitems", pd);
+	}
+
 }

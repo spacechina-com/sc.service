@@ -61,6 +61,9 @@
             	DESCRIPTION LIKE CONCAT(CONCAT('%', #{keywords}),'%')
             )
         </if>
+        <if test="COMPANY_ID != null and COMPANY_ID != ''"><!-- 关键词检索 -->
+            and COMPANY_ID = #{COMPANY_ID}
+        </if>
         order by PRIZEITEMS_ID DESC
     </select>
 
