@@ -5,7 +5,7 @@ import java.util.List;
 import com.sc.api.model.Page;
 import com.sc.api.model.Pd;
 
-public interface IModalitiesService {
+public interface IMemberService {
 
 	void save(Pd pd) throws Exception;
 
@@ -18,4 +18,6 @@ public interface IModalitiesService {
 	List<Pd> listPage(Page page) throws Exception;
 
 	List<Pd> listAll(Pd pd) throws Exception;
+
+	Pd findBy(Pd pd) throws Exception;
 }

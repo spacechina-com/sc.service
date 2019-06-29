@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="MerchantMapper">
+<mapper namespace="MemberMapper">
     <!--表名 -->
     <sql id="tableName">
-		merchant
+		member
 	</sql>
 
     <!-- 字段 -->
     <sql id="Field">
-		MERCHANT_ID,
-		COMPANY_ID,
-		APPID,
-		APPSECRET,
-		MCHID,
-		MCHKEY,
-		MCHCERT,
-		UPDATE_TIME
+		MEMBER_ID,
+		OPENID,
+		NICKNAME,
+		PHOTO,
+		SEX,
+		CDT,
+		COMPANY_ID
 	</sql>
 
     <!-- 字段值 -->
     <sql id="FieldValue">
-		#{MERCHANT_ID},
-		#{COMPANY_ID},
-		#{APPID},
-		#{APPSECRET},
-		#{MCHID},
-		#{MCHKEY},
-		#{MCHCERT},
-		#{UPDATE_TIME}
+		#{MEMBER_ID},
+		#{OPENID},
+		#{NICKNAME},
+		#{PHOTO},
+		#{SEX},
+		#{CDT},
+		#{COMPANY_ID}
 	</sql>
 
    <select id="listPage" parameterType="page" resultType="pd">
@@ -41,10 +39,13 @@
         <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
             and
             (
-            	UPDATE_TIME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            	NICKNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
             )
         </if>
-        order by MERCHANT_ID ASC
+        <if test="pd.COMPANY_ID != null and pd.COMPANY_ID != ''"><!-- 关键词检索 -->
+            and COMPANY_ID = #{pd.COMPANY_ID}
+        </if>
+        order by MEMBER_ID DESC
     </select>
 
     <select id="listAll" parameterType="pd" resultType="pd">
@@ -57,14 +58,17 @@
         <if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
             and
             (
-            	UPDATE_TIME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+            	DESCRIPTION LIKE CONCAT(CONCAT('%', #{keywords}),'%')
             )
         </if>
-        order by MERCHANT_ID ASC
+        <if test="COMPANY_ID != null and COMPANY_ID != ''"><!-- 关键词检索 -->
+            and COMPANY_ID = #{COMPANY_ID}
+        </if>
+        order by MEMBER_ID DESC
     </select>
 
     <!-- 新增 -->
-    <insert id="save" parameterType="pd" useGeneratedKeys="true" keyProperty="MERCHANT_ID">
+    <insert id="save" parameterType="pd" useGeneratedKeys="true" keyProperty="MEMBER_ID">
         insert into <include refid="tableName"></include> (
         <include refid="Field"></include>
         ) values (
@@ -77,27 +81,18 @@
         update
         <include refid="tableName"></include>
         set
-        MERCHANT_ID = #{MERCHANT_ID}
-        <if test="APPID != null and APPID != ''">
-            ,APPID = #{APPID}
+        MEMBER_ID = #{MEMBER_ID}
+        <if test="NICKNAME != null and NICKNAME != ''">
+            ,NICKNAME = #{NICKNAME}
         </if>
-        <if test="APPSECRET != null and APPSECRET != ''">
-            ,APPSECRET = #{APPSECRET}
+        <if test="PHOTO != null and PHOTO != ''">
+            ,PHOTO = #{PHOTO}
         </if>
-        <if test="MCHID != null and MCHID != ''">
-            ,MCHID = #{MCHID}
-        </if>
-        <if test="MCHKEY != null and MCHKEY != ''">
-            ,MCHKEY = #{MCHKEY}
-        </if>
-        <if test="MCHCERT != null and MCHCERT != ''">
-            ,MCHCERT = #{MCHCERT}
-        </if>
-        <if test="UPDATE_TIME != null and UPDATE_TIME != ''">
-            ,UPDATE_TIME = #{UPDATE_TIME}
+        <if test="SEX != null and SEX != ''">
+            ,SEX = #{SEX}
         </if>
         where
-        MERCHANT_ID = #{MERCHANT_ID}
+        MEMBER_ID = #{MEMBER_ID}
     </update>
     
     <!-- 删除 -->
@@ -105,7 +100,7 @@
         delete from
         <include refid="tableName"></include>
         where
-        MERCHANT_ID = #{MERCHANT_ID}
+        MEMBER_ID = #{MEMBER_ID}
     </delete>
     
     <!-- 通过user_id获取数据 -->
@@ -115,7 +110,7 @@
         from
         <include refid="tableName"></include>
         where
-        MERCHANT_ID = #{MERCHANT_ID}
+        MEMBER_ID = #{MEMBER_ID}
     </select>
     
     <select id="findBy" parameterType="pd" resultType="pd">
@@ -125,8 +120,8 @@
         <include refid="tableName"></include>
         where
         1 = 1
-        <if test="COMPANY_ID != null and COMPANY_ID != ''">
-            and COMPANY_ID = #{COMPANY_ID}
+        <if test="OPENID != null and OPENID != ''">
+            and openid = #{OPENID}
         </if>
         limit 0,1
     </select>
