@@ -123,4 +123,15 @@ public class ActivitiesController extends BaseController {
 		}
 		return pd;
 	}
+
+	@RequestMapping(value = "findBy", method = RequestMethod.POST)
+	public Pd findBy(@RequestBody Pd pd) {
+		try {
+			pd = activitiesService.findBy(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
 }

@@ -24,4 +24,6 @@ public interface IActivitiesService {
 	List<Pd> listAllPrizeitems(Pd pd) throws Exception;
 
 	void deletePrizeitems(Pd pd) throws Exception;
+
+	Pd findBy(Pd pd) throws Exception;
 }

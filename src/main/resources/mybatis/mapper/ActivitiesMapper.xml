@@ -201,4 +201,27 @@
         where
         ACTIVITIES_ID = #{ACTIVITIES_ID}
     </select>
+    
+    <select id="findBy" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        1 = 1
+        <if test="COMPANY_ID != null and COMPANY_ID != ''">
+            and COMPANY_ID = #{COMPANY_ID}
+        </if>
+        <if test="GOODS_ID != null and GOODS_ID != ''">
+            and GOODS_ID = #{GOODS_ID}
+        </if>
+        <if test="BATCH_ID != null and BATCH_ID != ''">
+            and BATCH_ID = #{BATCH_ID}
+        </if>
+        <if test="STATE != null and STATE != ''">
+            and STATE = #{STATE}
+        </if>
+        order by ACTIVITIES_ID DESC
+        limit 0,1
+    </select>
 </mapper>

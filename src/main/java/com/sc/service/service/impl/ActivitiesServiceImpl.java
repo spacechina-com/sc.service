@@ -62,4 +62,9 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		dao.delete("ActivitiesMapper.deletePrizeitems", pd);
 	}
 
+	@Override
+	public Pd findBy(Pd pd) throws Exception {
+		return (Pd) dao.findForObject("ActivitiesMapper.findBy", pd);
+	}
+
 }
