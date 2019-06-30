@@ -76,6 +76,16 @@
         )
     </insert>
     
+    <insert id="saveAddress" parameterType="pd" useGeneratedKeys="true" keyProperty="ADDRESS_ID">
+        insert into address values (
+        	null,
+        	#{MEMBER_ID},
+        	#{REALNAME},
+        	#{PHONE},
+        	#{DESCRIPTION}
+        )
+    </insert>
+    
         <!-- 修改 -->
     <update id="edit" parameterType="pd">
         update
@@ -93,6 +103,24 @@
         </if>
         where
         MEMBER_ID = #{MEMBER_ID}
+    </update>
+    
+    <update id="editAddress" parameterType="pd">
+        update
+        address
+        set
+        ADDRESS_ID = #{ADDRESS_ID}
+        <if test="REALNAME != null and REALNAME != ''">
+            ,REALNAME = #{REALNAME}
+        </if>
+        <if test="PHONE != null and PHONE != ''">
+            ,PHONE = #{PHONE}
+        </if>
+        <if test="DESCRIPTION != null and DESCRIPTION != ''">
+            ,DESCRIPTION = #{DESCRIPTION}
+        </if>
+        where
+        ADDRESS_ID = #{ADDRESS_ID}
     </update>
     
     <!-- 删除 -->
@@ -122,6 +150,23 @@
         1 = 1
         <if test="OPENID != null and OPENID != ''">
             and openid = #{OPENID}
+        </if>
+        limit 0,1
+    </select>
+    
+    <select id="findAddress" parameterType="pd" resultType="pd">
+        select
+        	ADDRESS_ID,
+        	MEMBER_ID,
+        	REALNAME,
+        	PHONE,
+        	DESCRIPTION
+        from
+        address
+        where
+        1 = 1
+        <if test="MEMBER_ID != null and MEMBER_ID != ''">
+            and MEMBER_ID = #{MEMBER_ID}
         </if>
         limit 0,1
     </select>

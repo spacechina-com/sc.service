@@ -20,4 +20,10 @@ public interface IMemberService {
 	List<Pd> listAll(Pd pd) throws Exception;
 
 	Pd findBy(Pd pd) throws Exception;
+
+	void saveAddress(Pd pd) throws Exception;
+
+	void editAddress(Pd pd) throws Exception;
+
+	Pd findAddress(Pd pd) throws Exception;
 }

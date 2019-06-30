@@ -57,10 +57,32 @@ public class MemberController extends BaseController {
 		return pd;
 	}
 
+	@RequestMapping(value = "saveAddress", method = RequestMethod.POST)
+	public Pd saveAddress(@RequestBody Pd pd) {
+		try {
+			memberService.saveAddress(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
 	public Pd edit(@RequestBody Pd pd) {
 		try {
 			memberService.edit(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
+	@RequestMapping(value = "editAddress", method = RequestMethod.POST)
+	public Pd editAddress(@RequestBody Pd pd) {
+		try {
+			memberService.editAddress(pd);
 		} catch (Exception e) {
 			pd = null;
 			e.printStackTrace();
@@ -94,6 +116,17 @@ public class MemberController extends BaseController {
 	public Pd findBy(@RequestBody Pd pd) {
 		try {
 			pd = memberService.findBy(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
+	@RequestMapping(value = "findAddress", method = RequestMethod.POST)
+	public Pd findAddress(@RequestBody Pd pd) {
+		try {
+			pd = memberService.findAddress(pd);
 		} catch (Exception e) {
 			pd = null;
 			e.printStackTrace();

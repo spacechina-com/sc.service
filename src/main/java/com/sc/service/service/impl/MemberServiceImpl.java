@@ -52,4 +52,19 @@ public class MemberServiceImpl implements IMemberService {
 		return (Pd) dao.findForObject("MemberMapper.findBy", pd);
 	}
 
+	@Override
+	public void saveAddress(Pd pd) throws Exception {
+		dao.save("MemberMapper.saveAddress", pd);
+	}
+
+	@Override
+	public void editAddress(Pd pd) throws Exception {
+		dao.update("MemberMapper.editAddress", pd);
+	}
+
+	@Override
+	public Pd findAddress(Pd pd) throws Exception {
+		return (Pd) dao.findForObject("MemberMapper.findAddress", pd);
+	}
+
 }
