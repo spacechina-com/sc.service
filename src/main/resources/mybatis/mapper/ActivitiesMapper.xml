@@ -21,6 +21,7 @@
 		CREATE_USER,
 		GOODS_ID,
 		BATCH_ID,
+		SINGLE_LIMIT,
 		STATE
 	</sql>
 
@@ -38,6 +39,7 @@
 		#{CREATE_USER},
 		#{GOODS_ID},
 		#{BATCH_ID},
+		#{SINGLE_LIMIT},
 		#{STATE}
 	</sql>
 
@@ -55,6 +57,7 @@
 			a.CREATE_USER,
 			a.GOODS_ID,
 			a.BATCH_ID,
+			a.SINGLE_LIMIT,
 			a.STATE,
 			m.DESCRIPTION MDESCRIPTION
         from
@@ -170,6 +173,9 @@
         </if>
         <if test="BATCH_ID != null and BATCH_ID != ''">
             ,BATCH_ID = #{BATCH_ID}
+        </if>
+        <if test="SINGLE_LIMIT != null and SINGLE_LIMIT != ''">
+            ,SINGLE_LIMIT = #{SINGLE_LIMIT}
         </if>
         <if test="STATE != null and STATE != ''">
             ,STATE = #{STATE}
