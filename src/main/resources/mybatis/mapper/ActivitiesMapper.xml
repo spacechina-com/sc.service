@@ -117,7 +117,8 @@
         	ap.PRIZEITEMS_ID,
         	ap.PERCENT,
         	p.DESCRIPTION,
-        	p.IMAGE_PATH
+        	p.IMAGE_PATH,
+        	p.AUTOHANDER
         from
         activities_prizeitems ap
         left join prizeitems p on ap.prizeitems_id = p.prizeitems_id
