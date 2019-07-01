@@ -29,24 +29,43 @@
 
    <select id="listPage" parameterType="page" resultType="pd">
         select
-        <include refid="Field"></include>
+	        du.DRAWUSER_ID,
+			du.PRIZEITEMS_ID,
+			du.ACTIVITIES_ID,
+			du.MEMBER_ID,
+			du.CREATE_TIME,
+			du.STATE,
+			p.DESCRIPTION,
+			p.IMAGE_PATH,
+			p.HANDERTYPE_ID,
+			a.TOPIC,
+			m.OPENID,
+			m.NICKNAME,
+			m.PHOTO,
+			ar.REALNAME,
+			ar.PHONE,
+			ar.DESCRIPTION ADDRESSDETIAL
         from
-        <include refid="tableName"></include>
+        <include refid="tableName"></include> du
+        left join prizeitems p on du.prizeitems_id = p.prizeitems_id
+        left join activities a on du.activities_id = a.activities_id
+        left join member m on du.member_id = m.member_id
+        left join address ar on m.member_id = ar.member_id
         where
         1 = 1
         <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
             and
             (
-            	CREATE_TIME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            	du.CREATE_TIME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
             )
         </if>
         <if test="pd.ACTIVITIES_ID != null and pd.ACTIVITIES_ID != ''"><!-- 关键词检索 -->
-            and ACTIVITIES_ID = #{pd.ACTIVITIES_ID}
+            and du.ACTIVITIES_ID = #{pd.ACTIVITIES_ID}
         </if>
         <if test="pd.STATE != null and pd.STATE != ''"><!-- 关键词检索 -->
-            and STATE = #{pd.STATE}
+            and du.STATE = #{pd.STATE}
         </if>
-        order by DRAWUSER_ID ASC
+        order by du.DRAWUSER_ID DESC
     </select>
 
     <select id="listAll" parameterType="pd" resultType="pd">

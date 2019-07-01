@@ -47,4 +47,9 @@ public class PrizeitemsServiceImpl implements IPrizeitemsService {
 		return (Pd) dao.findForObject("PrizeitemsMapper.findById", pd);
 	}
 
+	@Override
+	public List<Pd> listAllHandertype(Pd pd) throws Exception {
+		return (List<Pd>) dao.findForList("PrizeitemsMapper.listAllHandertype", pd);
+	}
+
 }

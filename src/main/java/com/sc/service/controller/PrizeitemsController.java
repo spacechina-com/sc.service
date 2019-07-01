@@ -32,6 +32,18 @@ public class PrizeitemsController extends BaseController {
 		return data;
 	}
 
+	@RequestMapping(value = "listAllHandertype", method = RequestMethod.POST)
+	public List<Pd> listAllHandertype(@RequestBody Pd pd) {
+		List<Pd> data = null;
+		try {
+			data = prizeitemsService.listAllHandertype(pd);
+		} catch (Exception e) {
+			data = new ArrayList<Pd>();
+			e.printStackTrace();
+		}
+		return data;
+	}
+
 	@RequestMapping(value = "listPage", method = RequestMethod.POST)
 	public Page listPage(@RequestBody Pd pd) {
 		Page page = getPage(pd);

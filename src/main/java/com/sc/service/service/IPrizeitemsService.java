@@ -18,4 +18,6 @@ public interface IPrizeitemsService {
 	List<Pd> listPage(Page page) throws Exception;
 
 	List<Pd> listAll(Pd pd) throws Exception;
+
+	List<Pd> listAllHandertype(Pd pd) throws Exception;
 }

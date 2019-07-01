@@ -16,7 +16,8 @@
 		SAMEMONEY,
 		CREATE_TIME,
 		CREATE_USER,
-		AUTOHANDER
+		AUTOHANDER,
+		HANDERTYPE_ID
 	</sql>
 
     <!-- 字段值 -->
@@ -28,7 +29,8 @@
 		#{SAMEMONEY},
 		#{CREATE_TIME},
 		#{CREATE_USER},
-		#{AUTOHANDER}
+		#{AUTOHANDER},
+		#{HANDERTYPE_ID}
 	</sql>
 
    <select id="listPage" parameterType="page" resultType="pd">
@@ -68,6 +70,13 @@
         </if>
         order by PRIZEITEMS_ID DESC
     </select>
+    
+    <select id="listAllHandertype" parameterType="pd" resultType="pd">
+    	select 
+    		HANDERTYPE_ID,
+    		DESCRIPTION
+    	from handertype
+    </select>
 
     <!-- 新增 -->
     <insert id="save" parameterType="pd" useGeneratedKeys="true" keyProperty="PRIZEITEMS_ID">
@@ -95,6 +104,9 @@
         </if>
         <if test="AUTOHANDER != null and AUTOHANDER != ''">
             ,AUTOHANDER = #{AUTOHANDER}
+        </if>
+        <if test="HANDERTYPE_ID != null and HANDERTYPE_ID != ''">
+            ,HANDERTYPE_ID = #{HANDERTYPE_ID}
         </if>
         where
         PRIZEITEMS_ID = #{PRIZEITEMS_ID}
