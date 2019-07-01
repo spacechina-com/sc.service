@@ -15,7 +15,8 @@
 		DESCRIPTION,
 		SAMEMONEY,
 		CREATE_TIME,
-		CREATE_USER
+		CREATE_USER,
+		AUTOHANDER
 	</sql>
 
     <!-- 字段值 -->
@@ -26,7 +27,8 @@
 		#{DESCRIPTION},
 		#{SAMEMONEY},
 		#{CREATE_TIME},
-		#{CREATE_USER}
+		#{CREATE_USER},
+		#{AUTOHANDER}
 	</sql>
 
    <select id="listPage" parameterType="page" resultType="pd">
@@ -90,6 +92,9 @@
         </if>
         <if test="SAMEMONEY != null and SAMEMONEY != ''">
             ,SAMEMONEY = #{SAMEMONEY}
+        </if>
+        <if test="AUTOHANDER != null and AUTOHANDER != ''">
+            ,AUTOHANDER = #{AUTOHANDER}
         </if>
         where
         PRIZEITEMS_ID = #{PRIZEITEMS_ID}
