@@ -67,4 +67,19 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		return (Pd) dao.findForObject("ActivitiesMapper.findBy", pd);
 	}
 
+	@Override
+	public void saveBatchs(Pd pd) throws Exception {
+		dao.save("ActivitiesMapper.saveBatchs", pd);
+	}
+
+	@Override
+	public List<Pd> listAllBatchs(Pd pd) throws Exception {
+		return (List<Pd>) dao.findForList("ActivitiesMapper.listAllBatchs", pd);
+	}
+
+	@Override
+	public void deleteBatchs(Pd pd) throws Exception {
+		dao.delete("ActivitiesMapper.deleteBatchs", pd);
+	}
+
 }

@@ -20,7 +20,6 @@
 		CREATE_TIME,
 		CREATE_USER,
 		GOODS_ID,
-		BATCH_ID,
 		SINGLE_LIMIT,
 		DAY_LIMIT,
 		STATE
@@ -39,7 +38,6 @@
 		#{CREATE_TIME},
 		#{CREATE_USER},
 		#{GOODS_ID},
-		#{BATCH_ID},
 		#{SINGLE_LIMIT},
 		#{DAY_LIMIT},
 		#{STATE}
@@ -58,7 +56,6 @@
 			a.CREATE_TIME,
 			a.CREATE_USER,
 			a.GOODS_ID,
-			a.BATCH_ID,
 			a.SINGLE_LIMIT,
 			a.DAY_LIMIT,
 			a.STATE,
@@ -129,6 +126,21 @@
         </if>
         order by ACTIVITIES_PRIZEITEMS_ID ASC
     </select>
+    
+    <select id="listAllBatchs" parameterType="pd" resultType="pd">
+        select
+        	ACTIVITIES_BATCH_ID,
+        	ACTIVITIES_ID,
+        	BATCH_ID
+        from
+        activities_batch ab
+         where
+        1 = 1
+        <if test="ACTIVITIES_ID != null and ACTIVITIES_ID != ''"><!-- 关键词检索 -->
+            and ab.ACTIVITIES_ID = #{ACTIVITIES_ID}
+        </if>
+        order by ab.ACTIVITIES_BATCH_ID ASC
+    </select>
 
     <!-- 新增 -->
     <insert id="save" parameterType="pd" useGeneratedKeys="true" keyProperty="ACTIVITIES_ID">
@@ -145,6 +157,14 @@
         #{ACTIVITIES_ID},
         #{PRIZEITEMS_ID},
         #{PERCENT}
+        )
+    </insert>
+    
+    <insert id="saveBatchs" parameterType="pd" useGeneratedKeys="true" keyProperty="ACTIVITIES_BATCH_ID">
+        insert into activities_batch values (
+        null,
+        #{ACTIVITIES_ID},
+        #{BATCH_ID}
         )
     </insert>
     
@@ -175,9 +195,6 @@
         <if test="GOODS_ID != null and GOODS_ID != ''">
             ,GOODS_ID = #{GOODS_ID}
         </if>
-        <if test="BATCH_ID != null and BATCH_ID != ''">
-            ,BATCH_ID = #{BATCH_ID}
-        </if>
         <if test="SINGLE_LIMIT != null and SINGLE_LIMIT != ''">
             ,SINGLE_LIMIT = #{SINGLE_LIMIT}
         </if>
@@ -205,6 +222,12 @@
         ACTIVITIES_PRIZEITEMS_ID = #{ACTIVITIES_PRIZEITEMS_ID}
     </delete>
     
+    <delete id="deleteBatchs" parameterType="pd" flushCache="false">
+        delete from activities_batch
+     where
+        ACTIVITIES_BATCH_ID = #{ACTIVITIES_BATCH_ID}
+    </delete>
+    
     <!-- 通过user_id获取数据 -->
     <select id="findById" parameterType="pd" resultType="pd">
         select
@@ -217,24 +240,39 @@
     
     <select id="findBy" parameterType="pd" resultType="pd">
         select
-        <include refid="Field"></include>
+        	a.ACTIVITIES_ID,
+			a.COMPANY_ID,
+			a.MODALITIES_ID,
+			a.BACK_PATH,
+			a.TOPIC,
+			a.DESCRIPTION,
+			a.START_TIME,
+			a.END_TIME,
+			a.CREATE_TIME,
+			a.CREATE_USER,
+			a.GOODS_ID,
+			a.SINGLE_LIMIT,
+			a.DAY_LIMIT,
+			a.STATE,
+			ab.BATCH_ID
         from
-        <include refid="tableName"></include>
+        <include refid="tableName"></include> a
+        left join activities_batch ab on a.activities_id = ab.activities_id
         where
         1 = 1
         <if test="COMPANY_ID != null and COMPANY_ID != ''">
-            and COMPANY_ID = #{COMPANY_ID}
+            and a.COMPANY_ID = #{COMPANY_ID}
         </if>
         <if test="GOODS_ID != null and GOODS_ID != ''">
-            and GOODS_ID = #{GOODS_ID}
+            and a.GOODS_ID = #{GOODS_ID}
         </if>
         <if test="BATCH_ID != null and BATCH_ID != ''">
-            and BATCH_ID = #{BATCH_ID}
+            and ab.BATCH_ID = #{BATCH_ID}
         </if>
         <if test="STATE != null and STATE != ''">
-            and STATE = #{STATE}
+            and a.STATE = #{STATE}
         </if>
-        order by ACTIVITIES_ID DESC
+        order by a.ACTIVITIES_ID DESC
         limit 0,1
     </select>
 </mapper>

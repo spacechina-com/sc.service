@@ -26,4 +26,10 @@ public interface IActivitiesService {
 	void deletePrizeitems(Pd pd) throws Exception;
 
 	Pd findBy(Pd pd) throws Exception;
+
+	void saveBatchs(Pd pd) throws Exception;
+
+	List<Pd> listAllBatchs(Pd pd) throws Exception;
+
+	void deleteBatchs(Pd pd) throws Exception;
 }
