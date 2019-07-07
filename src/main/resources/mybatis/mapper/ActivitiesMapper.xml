@@ -129,11 +129,13 @@
     
     <select id="listAllBatchs" parameterType="pd" resultType="pd">
         select
-        	ACTIVITIES_BATCH_ID,
-        	ACTIVITIES_ID,
-        	BATCH_ID
+        	ab.ACTIVITIES_BATCH_ID,
+        	ab.ACTIVITIES_ID,
+        	ab.BATCH_ID,
+        	c.batch_name BATCHNAME
         from
         activities_batch ab
+        left join code c on ab.batch_id = c.id
          where
         1 = 1
         <if test="ACTIVITIES_ID != null and ACTIVITIES_ID != ''"><!-- 关键词检索 -->
