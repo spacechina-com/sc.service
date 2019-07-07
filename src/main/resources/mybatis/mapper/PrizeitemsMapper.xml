@@ -35,22 +35,32 @@
 
    <select id="listPage" parameterType="page" resultType="pd">
         select
-        <include refid="Field"></include>
+	        p.PRIZEITEMS_ID,
+			p.COMPANY_ID,
+			p.IMAGE_PATH,
+			p.DESCRIPTION,
+			p.SAMEMONEY,
+			p.CREATE_TIME,
+			p.CREATE_USER,
+			p.AUTOHANDER,
+			p.HANDERTYPE_ID,
+			ht.DESCRIPTION HDESCRIPTION
         from
-        <include refid="tableName"></include>
+        <include refid="tableName"></include> p
+        left join handertype ht on p.handertype_id = ht.handertype_id
         where
         1 = 1
         <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
             and
             (
-            	DESCRIPTION LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            	p.DESCRIPTION LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
             )
         </if>
         <if test="pd.COMPANY_ID != null and pd.COMPANY_ID != ''"><!-- 关键词检索 -->
-            and COMPANY_ID = #{pd.COMPANY_ID}
+            and p.COMPANY_ID = #{pd.COMPANY_ID}
         </if>
         <if test="pd.HANDERTYPE_ID != null and pd.HANDERTYPE_ID != ''"><!-- 关键词检索 -->
-            and HANDERTYPE_ID = #{pd.HANDERTYPE_ID}
+            and p.HANDERTYPE_ID = #{pd.HANDERTYPE_ID}
         </if>
         order by PRIZEITEMS_ID DESC
     </select>
