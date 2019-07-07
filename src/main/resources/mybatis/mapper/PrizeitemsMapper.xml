@@ -49,6 +49,9 @@
         <if test="pd.COMPANY_ID != null and pd.COMPANY_ID != ''"><!-- 关键词检索 -->
             and COMPANY_ID = #{pd.COMPANY_ID}
         </if>
+        <if test="pd.HANDERTYPE_ID != null and pd.HANDERTYPE_ID != ''"><!-- 关键词检索 -->
+            and HANDERTYPE_ID = #{pd.HANDERTYPE_ID}
+        </if>
         order by PRIZEITEMS_ID DESC
     </select>
 
@@ -67,6 +70,9 @@
         </if>
         <if test="COMPANY_ID != null and COMPANY_ID != ''"><!-- 关键词检索 -->
             and COMPANY_ID = #{COMPANY_ID}
+        </if>
+        <if test="HANDERTYPE_ID != null and HANDERTYPE_ID != ''"><!-- 关键词检索 -->
+            and HANDERTYPE_ID = #{HANDERTYPE_ID}
         </if>
         order by PRIZEITEMS_ID DESC
     </select>
