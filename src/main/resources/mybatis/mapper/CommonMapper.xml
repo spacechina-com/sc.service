@@ -25,7 +25,7 @@
 			c.batch_name BATCHNAME
 		 from code_goods cg
 		left join code c on cg.code_id = c.id
-		where cg.goods_id = #{GOODS_ID} and c.company_id = #{COMPANY_ID}
+		where cg.goods_id = #{GOODS_ID}
     </select>
     <select id="findInfoBy" parameterType="pd" resultType="pd">
         select 
