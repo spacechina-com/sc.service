@@ -269,7 +269,13 @@
             and a.GOODS_ID = #{GOODS_ID}
         </if>
         <if test="BATCH_ID != null and BATCH_ID != ''">
-            and ab.BATCH_ID = #{BATCH_ID}
+            and (
+            		ab.BATCH_ID = #{BATCH_ID}
+            		
+            		or
+            		
+            		ab.BATCH_ID is null
+         		)
         </if>
         <if test="STATE != null and STATE != ''">
             and a.STATE = #{STATE}
