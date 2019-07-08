@@ -60,6 +60,9 @@
             	du.CREATE_TIME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
             )
         </if>
+        <if test="pd.COMPANY_ID != null and pd.COMPANY_ID != ''"><!-- 关键词检索 -->
+            and a.COMPANY_ID = #{pd.COMPANY_ID}
+        </if>
         <if test="pd.ACTIVITIES_ID != null and pd.ACTIVITIES_ID != ''"><!-- 关键词检索 -->
             and du.ACTIVITIES_ID = #{pd.ACTIVITIES_ID}
         </if>
