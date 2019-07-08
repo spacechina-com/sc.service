@@ -31,4 +31,9 @@ public class CommonImpl implements ICommonService {
 		return (List<Pd>) dao.findForList("CommonMapper.listAllGoodsBatch", pd);
 	}
 
+	@Override
+	public Pd findInfoBy(Pd pd) throws Exception {
+		return (Pd) dao.findForObject("CommonMapper.findInfoBy", pd);
+	}
+
 }

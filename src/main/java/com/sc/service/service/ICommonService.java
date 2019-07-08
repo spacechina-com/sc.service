@@ -11,4 +11,6 @@ public interface ICommonService {
 	List<Pd> listAllGoods(Pd pd) throws Exception;
 
 	List<Pd> listAllGoodsBatch(Pd pd) throws Exception;
+
+	Pd findInfoBy(Pd pd) throws Exception;
 }

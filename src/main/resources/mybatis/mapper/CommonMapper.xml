@@ -27,4 +27,13 @@
 		left join code c on cg.code_id = c.id
 		where cg.goods_id = #{GOODS_ID} and c.company_id = #{COMPANY_ID}
     </select>
+    <select id="findInfoBy" parameterType="pd" resultType="pd">
+        select 
+			c.company_id COMPANY_ID,
+			c.goods_id GOODS_ID,
+			c.id BATCH_ID
+		 from code_detail cd
+		left join code c on cd.code_id = c.id
+			where cd.code = #{CODE}
+    </select>
 </mapper>

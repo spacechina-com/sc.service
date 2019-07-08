@@ -20,9 +20,20 @@ public class CommonController extends BaseController {
 	ICommonService commonService;
 
 	@RequestMapping(value = "/user/find", method = RequestMethod.POST)
-	public Pd find(@RequestBody Pd pd) {
+	public Pd findUser(@RequestBody Pd pd) {
 		try {
 			pd = commonService.findUserById(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
+	@RequestMapping(value = "/info/find", method = RequestMethod.POST)
+	public Pd findInfo(@RequestBody Pd pd) {
+		try {
+			pd = commonService.findInfoBy(pd);
 		} catch (Exception e) {
 			pd = null;
 			e.printStackTrace();
