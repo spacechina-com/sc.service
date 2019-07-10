@@ -20,6 +20,7 @@
 		CREATE_TIME,
 		CREATE_USER,
 		GOODS_ID,
+		PEOPLE_LIMIT,
 		SINGLE_LIMIT,
 		DAY_LIMIT,
 		STATE
@@ -38,6 +39,7 @@
 		#{CREATE_TIME},
 		#{CREATE_USER},
 		#{GOODS_ID},
+		#{PEOPLE_LIMIT},
 		#{SINGLE_LIMIT},
 		#{DAY_LIMIT},
 		#{STATE}
@@ -56,6 +58,7 @@
 			a.CREATE_TIME,
 			a.CREATE_USER,
 			a.GOODS_ID,
+			a.PEOPLE_LIMIT,
 			a.SINGLE_LIMIT,
 			a.DAY_LIMIT,
 			a.STATE,
@@ -197,6 +200,9 @@
         <if test="GOODS_ID != null and GOODS_ID != ''">
             ,GOODS_ID = #{GOODS_ID}
         </if>
+        <if test="PEOPLE_LIMIT != null and PEOPLE_LIMIT != ''">
+            ,PEOPLE_LIMIT = #{PEOPLE_LIMIT}
+        </if>
         <if test="SINGLE_LIMIT != null and SINGLE_LIMIT != ''">
             ,SINGLE_LIMIT = #{SINGLE_LIMIT}
         </if>
@@ -253,6 +259,7 @@
 			a.CREATE_TIME,
 			a.CREATE_USER,
 			a.GOODS_ID,
+			a.PEOPLE_LIMIT,
 			a.SINGLE_LIMIT,
 			a.DAY_LIMIT,
 			a.STATE,
