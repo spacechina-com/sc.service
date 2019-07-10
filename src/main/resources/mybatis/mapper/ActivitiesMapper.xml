@@ -202,7 +202,7 @@
         #{ACTIVITIES_ID},
         #{MEMBER_ID},
         #{SNID},
-        #{CREATE_TIME},
+        #{CREATE_TIME}
         )
     </insert>
     
