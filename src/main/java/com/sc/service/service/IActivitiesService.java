@@ -32,4 +32,8 @@ public interface IActivitiesService {
 	List<Pd> listAllBatchs(Pd pd) throws Exception;
 
 	void deleteBatchs(Pd pd) throws Exception;
+
+	List<Pd> listAllCodes(Pd pd) throws Exception;
+
+	void saveCodes(Pd pd) throws Exception;
 }

@@ -56,6 +56,18 @@ public class ActivitiesController extends BaseController {
 		return data;
 	}
 
+	@RequestMapping(value = "listAllCodes", method = RequestMethod.POST)
+	public List<Pd> listAllCodes(@RequestBody Pd pd) {
+		List<Pd> data = null;
+		try {
+			data = activitiesService.listAllCodes(pd);
+		} catch (Exception e) {
+			data = new ArrayList<Pd>();
+			e.printStackTrace();
+		}
+		return data;
+	}
+
 	@RequestMapping(value = "listPage", method = RequestMethod.POST)
 	public Page listPage(@RequestBody Pd pd) {
 		Page page = getPage(pd);
@@ -96,6 +108,17 @@ public class ActivitiesController extends BaseController {
 	public Pd saveBatchs(@RequestBody Pd pd) {
 		try {
 			activitiesService.saveBatchs(pd);
+		} catch (Exception e) {
+			pd = null;
+			e.printStackTrace();
+		}
+		return pd;
+	}
+
+	@RequestMapping(value = "saveCodes", method = RequestMethod.POST)
+	public Pd saveCodes(@RequestBody Pd pd) {
+		try {
+			activitiesService.saveCodes(pd);
 		} catch (Exception e) {
 			pd = null;
 			e.printStackTrace();

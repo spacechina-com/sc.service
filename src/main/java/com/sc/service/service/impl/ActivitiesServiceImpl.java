@@ -82,4 +82,14 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		dao.delete("ActivitiesMapper.deleteBatchs", pd);
 	}
 
+	@Override
+	public List<Pd> listAllCodes(Pd pd) throws Exception {
+		return (List<Pd>) dao.findForList("ActivitiesMapper.listAllCodes", pd);
+	}
+
+	@Override
+	public void saveCodes(Pd pd) throws Exception {
+		dao.save("ActivitiesMapper.saveCodes", pd);
+	}
+
 }
