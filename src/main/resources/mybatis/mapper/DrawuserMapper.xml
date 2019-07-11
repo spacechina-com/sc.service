@@ -83,10 +83,12 @@
 			du.CREATE_TIME,
 			du.STATE,
 			p.DESCRIPTION,
-			p.IMAGE_PATH
+			p.IMAGE_PATH,
+			e.EXPRESSNO
         from
         <include refid="tableName"></include> du
         left join prizeitems p on du.prizeitems_id = p.prizeitems_id
+        left join express e on du.drawuser_id = e.drawuser_id
          where
         1 = 1
         <if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
