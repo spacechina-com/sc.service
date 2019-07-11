@@ -45,13 +45,15 @@
 			m.PHOTO,
 			ar.REALNAME,
 			ar.PHONE,
-			ar.DESCRIPTION ADDRESSDETIAL
+			ar.DESCRIPTION ADDRESSDETIAL,
+			e.EXPRESSNO
         from
         <include refid="tableName"></include> du
         left join prizeitems p on du.prizeitems_id = p.prizeitems_id
         left join activities a on du.activities_id = a.activities_id
         left join member m on du.member_id = m.member_id
         left join address ar on m.member_id = ar.member_id
+        left join express e on du.drawuser_id = e.drawuser_id
         where
         1 = 1
         <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
