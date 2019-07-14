@@ -13,6 +13,7 @@
 		PRIZEITEMS_ID,
 		ACTIVITIES_ID,
 		MEMBER_ID,
+		SNID,
 		CREATE_TIME,
 		STATE
 	</sql>
@@ -23,6 +24,7 @@
 		#{PRIZEITEMS_ID},
 		#{ACTIVITIES_ID},
 		#{MEMBER_ID},
+		#{SNID},
 		#{CREATE_TIME},
 		#{STATE}
 	</sql>
@@ -33,6 +35,7 @@
 			du.PRIZEITEMS_ID,
 			du.ACTIVITIES_ID,
 			du.MEMBER_ID,
+			du.SNID,
 			du.CREATE_TIME,
 			du.STATE,
 			p.DESCRIPTION,
@@ -80,6 +83,7 @@
 			du.PRIZEITEMS_ID,
 			du.ACTIVITIES_ID,
 			du.MEMBER_ID,
+			du.SNID,
 			du.CREATE_TIME,
 			du.STATE,
 			p.DESCRIPTION,
@@ -102,6 +106,9 @@
         </if>
          <if test="MEMBER_ID != null and MEMBER_ID != ''"><!-- 关键词检索 -->
             and du.MEMBER_ID = #{MEMBER_ID}
+        </if>
+        <if test="SNID != null and SNID != ''"><!-- 关键词检索 -->
+            and du.SNID = #{SNID}
         </if>
         <if test="DAYSTR != null and DAYSTR != ''"><!-- 关键词检索 -->
             and du.CREATE_TIME LIKE CONCAT(#{DAYSTR},'%')
